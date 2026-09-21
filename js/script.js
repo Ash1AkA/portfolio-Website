@@ -1,3 +1,51 @@
+// ===== Custom cursor =====
+const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+if (!isTouchDevice) {
+  document.body.classList.add("has-custom-cursor");
+
+  const cursorDot = document.getElementById("cursorDot");
+  const cursorRing = document.getElementById("cursorRing");
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  const hoverTargets = "a, button, input, textarea, .project-card, .skill-card";
+  document.addEventListener("mouseover", (e) => {
+    if (e.target.closest(hoverTargets)) cursorRing.classList.add("hovering");
+  });
+  document.addEventListener("mouseout", (e) => {
+    if (e.target.closest(hoverTargets)) cursorRing.classList.remove("hovering");
+  });
+  window.addEventListener("mousedown", () => cursorRing.classList.add("clicking"));
+  window.addEventListener("mouseup", () => cursorRing.classList.remove("clicking"));
+
+  document.addEventListener("mouseleave", () => {
+    cursorDot.style.opacity = "0";
+    cursorRing.style.opacity = "0";
+  });
+  document.addEventListener("mouseenter", () => {
+    cursorDot.style.opacity = "1";
+    cursorRing.style.opacity = "0.6";
+  });
+}
+
 // ===== Mobile nav toggle =====
 const navToggle = document.getElementById("navToggle");
 const navLinks = document.getElementById("navLinks");
