@@ -64,7 +64,7 @@ ul { list-style: none; }
 .img {
   object-fit: cover;
   /* Horizontal (X) and Vertical (Y) alignment */
-  object-position: center 20%; 
+  object-position: center 40%; 
 }
 
 
