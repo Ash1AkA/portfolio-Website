@@ -65,6 +65,7 @@ ul { list-style: none; }
   object-fit: cover;
   /* Horizontal (X) and Vertical (Y) alignment */
   object-position: center 40%; 
+  transform: scale(1.3);
 }
 
 
